@@ -43,9 +43,7 @@ void Calendar::writeData()
             fileStream << name << "\n" << date << "\n" << description << "\n\n";
 
         }
-
     }
-
 
      file.close();
 
@@ -69,6 +67,8 @@ void Calendar::readData()
 
            addEvent(Event(date, name, description));
        }
+       
+       file.close();
     }
 }
 
