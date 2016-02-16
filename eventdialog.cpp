@@ -28,6 +28,13 @@ EventDialog::EventDialog()
     connect(m_buttons, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
+void EventDialog::setDefault(QDate date, QString name, QString description)
+{
+    m_eventDateEdit->setDate(date);
+    m_nameEdit->setText(name);
+    m_descriptionEdit->setText(description);
+}
+
 Event EventDialog::getUserEvent()
 {
     return m_tmpEvent;
@@ -35,9 +42,7 @@ Event EventDialog::getUserEvent()
 
 void EventDialog::accept()
 {
-    m_tmpEvent.setDate(m_eventDateEdit->date().day(),
-                       m_eventDateEdit->date().month(),
-                       m_eventDateEdit->date().year());
+    m_tmpEvent.setDate(m_eventDateEdit->date());
     m_tmpEvent.setName(m_nameEdit->text());
     m_tmpEvent.setDescription(m_descriptionEdit->text());
     QDialog::accept();

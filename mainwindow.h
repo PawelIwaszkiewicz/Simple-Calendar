@@ -15,6 +15,7 @@ public:
 private slots:
     void addEvent();
     void removeEvent();
+    void editEvent();
     void showInformation();
 private:
     void closeEvent(QCloseEvent* event);

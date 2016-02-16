@@ -14,6 +14,7 @@ public:
 
     void addEvent(Event event);
     void removeEvent();
+    void editEvent();
     void readData();
     void writeData();
 protected slots:

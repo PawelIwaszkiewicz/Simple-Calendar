@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->menuBar()->addMenu(applcationMenu);
     applcationMenu->addAction(tr("&Add Event"), this, SLOT(addEvent()));
     applcationMenu->addAction(tr("&Remove Event"), this, SLOT(removeEvent()));
+    applcationMenu->addAction(tr("&Edit Event"), this, SLOT(editEvent()));
     applcationMenu->addAction(tr("&Close"), this, SLOT(close()));
 
     QMenu* helpMenu = new QMenu(tr("&Help"), this);
@@ -59,6 +60,11 @@ void MainWindow::addEvent()
 void MainWindow::removeEvent()
 {
     m_calendar->removeEvent();
+}
+
+void MainWindow::editEvent()
+{
+    m_calendar->editEvent();
 }
 
 void MainWindow::showInformation()

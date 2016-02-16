@@ -10,6 +10,7 @@ class EventDialog : public QDialog
 public:
     EventDialog();
     Event getUserEvent();
+    void setDefault(QDate date, QString name, QString description);
 protected slots:
     void accept();
 private:

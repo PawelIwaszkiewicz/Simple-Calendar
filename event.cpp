@@ -2,26 +2,19 @@
 
 Event::Event()
 {
-    m_date.setDate(QDate::currentDate().year(), QDate::currentDate().month(), QDate::currentDate().day());
+    setDate(QDate::currentDate());
 }
 
-Event::Event(uint day, uint month, uint year, QString name, QString description)
+Event::Event(QDate date, QString name, QString description)
 {
-    if(validateDate(day, month))
-    {
-        m_date.setDate(year, month, day);
-    }
-
+    setDate(date);
     m_name = name;
     m_description = description;
 }
 
-void Event::setDate(uint day, uint month, uint year)
+void Event::setDate(QDate date)
 {
-    if(validateDate(day, month))
-    {
-        m_date.setDate(year, month, day);
-    }
+   m_date.setDate(date.year(), date.month(), date.day());
 }
 
 void Event::setName(QString name)
@@ -34,10 +27,3 @@ void Event::setDescription(QString description)
     m_description = description;
 }
 
-bool Event::validateDate(uint day, uint month)
-{
-    if(day <= 31 && month <= 12)
-        return true;
-    else
-        return false;
-}

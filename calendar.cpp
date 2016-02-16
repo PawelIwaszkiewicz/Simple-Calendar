@@ -1,4 +1,5 @@
 #include "calendar.h"
+#include "eventdialog.h"
 
 Calendar::Calendar(QWidget *parent) : QWidget(parent)
 {
@@ -66,7 +67,7 @@ void Calendar::readData()
            date = QDate::fromString(fileStream.readLine(), "dd.MM.yyyy");
            description = fileStream.readLine();
 
-           addEvent(Event(date.day(), date.month(), date.year(), name, description));
+           addEvent(Event(date, name, description));
        }
     }
 }
@@ -101,6 +102,7 @@ void Calendar::addEvent(Event event)
 
 void Calendar::removeEvent()
 {
+
     QListIterator<QListWidgetItem*> itr(m_eventsList->selectedItems());
     while(itr.hasNext())
     {
@@ -108,6 +110,41 @@ void Calendar::removeEvent()
     }
 
     qDeleteAll(m_eventsList->selectedItems());
+}
+
+void Calendar::editEvent()
+{
+    QListIterator<QListWidgetItem*> itr(m_eventsList->selectedItems());
+    while(itr.hasNext())
+    {
+        QString id = itr.next()->text();
+        EventDialog dialog;
+        dialog.setWindowTitle(tr("Edit Event"));
+        dialog.setModal(true);
+        dialog.setDefault(m_events[id].getDate(),
+                m_events[id].getName(),
+                m_events[id].getDescription());
+
+        if(dialog.exec() == QDialog::Accepted)
+        {
+            Event tmpEvent = dialog.getUserEvent();
+
+            if((!tmpEvent.getName().isEmpty()) && (!tmpEvent.getDescription().isEmpty()))
+            {
+                m_events[id].setDate(tmpEvent.getDate());
+                m_events[id].setDescription(tmpEvent.getDescription());
+                m_events[id].setName(tmpEvent.getName());
+            }
+
+            else
+            {
+                QMessageBox::warning(this, tr("Warning"),
+                                        tr("can not create event with empty name or description!"));
+            }
+        }
+
+    }
+
 }
 
 bool Calendar::isEventNameInUse(QString name)
