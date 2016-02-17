@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_calendar = new Calendar();
 
-    QMenu* applcationMenu = new QMenu(tr("&Applcation"), this);
+    QMenu* applcationMenu = new QMenu(tr("&Application"), this);
     this->menuBar()->addMenu(applcationMenu);
     applcationMenu->addAction(tr("&Add Event"), this, SLOT(addEvent()));
     applcationMenu->addAction(tr("&Remove Event"), this, SLOT(removeEvent()));
